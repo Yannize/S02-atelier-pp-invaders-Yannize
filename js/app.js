@@ -11,7 +11,7 @@ var draw = {
     draw.gridSize.className = 'gridSize';
     draw.gridSize.type = 'number';
     draw.gridSize.placeholder = 'Taille de la grille';
-    draw.gridSize.value = '50';
+    draw.gridSize.value = '20';
     draw.gridSize.min = '1';
 
     document.querySelector('.configuration').appendChild(draw.gridSize);
@@ -19,7 +19,7 @@ var draw = {
     draw.pixelSize.className = 'pixelSize';
     draw.pixelSize.type = 'number';
     draw.pixelSize.placeholder = 'Taille des pixels';
-    draw.pixelSize.value = '10';
+    draw.pixelSize.value = '20';
     draw.pixelSize.step = '5';
     draw.pixelSize.min = '5';
     document.querySelector('.configuration').appendChild(draw.pixelSize);

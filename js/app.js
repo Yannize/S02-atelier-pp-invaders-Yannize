@@ -1,7 +1,8 @@
 var draw = {
+  divInvader: document.querySelector('#invader'),
   gridSize: document.createElement('input'),
-  button: document.createElement('button'),
   pixelSize: document.createElement('input'),
+  button: document.createElement('button'),
   styles: 'rgb(231, 231, 231)',
   preview: 'rgba(231, 231, 231, 0.7)',
   clicked: false,
@@ -10,7 +11,7 @@ var draw = {
     draw.gridSize.className = 'gridSize';
     draw.gridSize.type = 'number';
     draw.gridSize.placeholder = 'Taille de la grille';
-    draw.gridSize.value = '100';
+    draw.gridSize.value = '50';
     draw.gridSize.min = '1';
 
     document.querySelector('.configuration').appendChild(draw.gridSize);
@@ -18,7 +19,7 @@ var draw = {
     draw.pixelSize.className = 'pixelSize';
     draw.pixelSize.type = 'number';
     draw.pixelSize.placeholder = 'Taille des pixels';
-    draw.pixelSize.value = '5';
+    draw.pixelSize.value = '10';
     draw.pixelSize.step = '5';
     draw.pixelSize.min = '5';
     document.querySelector('.configuration').appendChild(draw.pixelSize);
@@ -59,23 +60,21 @@ var draw = {
       });
 
     // Listener sur le click pour changer la couleur
-    document
-      .querySelector('#invader')
-      .addEventListener('mousedown', function handleclick(e) {
-        if (draw.preview === draw.styles) {
-          e.target.style.backgroundColor = 'black';
-          draw.preview = 'black';
-        } else {
-          e.target.style.backgroundColor = draw.styles;
-          draw.preview = draw.styles;
-        }
-        e.target.style.opacity = 1;
-      });
+    draw.divInvader.addEventListener('mousedown', function (e) {
+      if (draw.preview === draw.styles) {
+        e.target.style.backgroundColor = 'black';
+        draw.preview = 'black';
+      } else {
+        e.target.style.backgroundColor = draw.styles;
+        draw.preview = draw.styles;
+      }
+      e.target.style.opacity = 1;
+    });
 
     // Listener sur le click pour sélectionner la couleur
     document
       .querySelector('.colorSelector')
-      .addEventListener('mousedown', function handleclick(e) {
+      .addEventListener('mousedown', function (e) {
         draw.styles = getComputedStyle(e.target);
         if (e.target.className !== 'colorSelector') {
           draw.styles = draw.styles.backgroundColor;
@@ -86,43 +85,34 @@ var draw = {
         }
       });
 
-    document
-      .querySelector('#invader')
-      .addEventListener('mouseover', function handleclick(e) {
+    draw.divInvader.addEventListener('mouseover', function (e) {
+      draw.preview = e.target.style.backgroundColor;
+      // console.log(draw.preview);
+      if (draw.clicked === true) {
+        e.target.style.backgroundColor = draw.styles;
+        e.target.style.opacity = 1;
         draw.preview = e.target.style.backgroundColor;
-        if (draw.clicked === true) {
-          e.target.style.backgroundColor = draw.styles;
-          e.target.style.opacity = 1;
-          draw.preview = e.target.style.backgroundColor;
-        } else {
-          e.target.style.backgroundColor = draw.styles;
-          e.target.style.opacity = 0.5;
-        }
-      });
+        console.log(draw.preview);
+      } else {
+        e.target.style.backgroundColor = draw.styles;
+        e.target.style.opacity = 0.5;
+      }
+    });
 
-    document
-      .querySelector('#invader')
-      .addEventListener('mouseout', function handleclick(e) {
-        if (draw.clicked === true) {
-        } else {
-          e.target.style.backgroundColor = draw.preview;
-          e.target.style.opacity = 1;
-        }
-      });
+    draw.divInvader.addEventListener('mouseout', function (e) {
+      if (draw.clicked === false) {
+        e.target.style.backgroundColor = draw.preview;
+        e.target.style.opacity = 1;
+      }
+    });
 
-    document
-      .querySelector('#invader')
-      .addEventListener('mousedown', function handleclick(e) {
-        draw.clicked = true;
-        console.log(draw.clicked);
-      });
+    draw.divInvader.addEventListener('mousedown', function (e) {
+      draw.clicked = true;
+    });
 
-    document
-      .querySelector('#invader')
-      .addEventListener('mouseup', function handleclick(e) {
-        draw.clicked = false;
-        console.log(draw.clicked);
-      });
+    draw.divInvader.addEventListener('mouseup', function (e) {
+      draw.clicked = false;
+    });
   },
 };
 
